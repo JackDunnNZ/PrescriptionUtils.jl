@@ -1,1 +1,6 @@
 julia 0.6
+GLMNet
+MLDataUtils
+NearestNeighbors
+ScikitLearn
+StatsBase
