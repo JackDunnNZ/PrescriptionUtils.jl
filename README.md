@@ -39,8 +39,7 @@ baseline_outcomes = evaluatebaseline(cf, X, y, T)
 Evaluates the outcomes of the a clairvoyant oracle using the counterfactuals `cf`:
 
 ```julia
-oracle_outcomes, oracle_prescriptions =
-    evaluateoracle(cf, allowed_prescriptions)
+oracle_outcomes, oracle_prescriptions = evaluateoracle(cf, allowed_prescriptions)
 ```
 
 `oracle_outcomes` is a `Vector{Float64}` containing the predicted outcome for each observation. `oracle_prescriptions` is a `Vector{Int}` containing the prescribed treatment for each observation.
@@ -66,8 +65,7 @@ The package also has simple utility functions for applying regress-and-compare m
 Train the regress-and-compare `method` (one of `:knn`, `:random_forest`, or `:lasso`) on training data `train_X`, `train_y` and `train_T` and predict the outcomes for each treatment on testing data `test_X`, `test_y` and `test_T`:
 
 ```julia
-outcomes = getoutcomes(train_X, train_y, train_T, test_X, test_y, test_T,
-                       method)
+outcomes = getoutcomes(train_X, train_y, train_T, test_X, test_y, test_T, method)
 ```
 
 `outcomes` is a `Matrix{Float64}` containing the predicted outcome from the regress-and-compare for each treatment and observation pair.
