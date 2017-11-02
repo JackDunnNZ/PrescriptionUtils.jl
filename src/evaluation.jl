@@ -32,7 +32,8 @@ function evaluateoracle(
   outcomes = Vector{Float64}(n)
   prescriptions = Vector{Int}(n)
   for i = 1:n
-    outcomes[i], prescriptions[i] = findmin(cf[i, allowed_prescriptions[i]])
+    outcomes[i], idx = findmin(cf[i, allowed_prescriptions[i]])
+    prescriptions[i] = allowed_prescriptions[i][idx]
   end
 
   outcomes, prescriptions
