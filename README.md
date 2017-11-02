@@ -62,10 +62,10 @@ The package also has simple utility functions for applying regress-and-compare m
 
 ### Training
 
-Train the regress-and-compare `method` (one of `:knn`, `:random_forest`, or `:lasso`) on training data `train_X`, `train_y` and `train_T` and predict the outcomes for each treatment on testing data `test_X`, `test_y` and `test_T`:
+Train the regress-and-compare `method` (one of `:knn`, `:random_forest`, or `:lasso`) on training data `train_X`, `train_y` and `train_T` and predict the outcomes for each treatment on testing data `test_X`:
 
 ```julia
-outcomes = getoutcomes(train_X, train_y, train_T, test_X, test_y, test_T, method)
+outcomes = getoutcomes(train_X, train_y, train_T, test_X, method)
 ```
 
 `outcomes` is a `Matrix{Float64}` containing the predicted outcome from the regress-and-compare for each treatment and observation pair.
@@ -97,21 +97,21 @@ oracle_outcomes, oracle_prescriptions = evaluateoracle(cf)
 
 Now we can compare the various regress-and-compare methods. First kNN:
 ```julia
-knn = getoutcomes(train_X, train_y, train_T, test_X, test_y, test_T, :knn)
+knn = getoutcomes(train_X, train_y, train_T, test_X, :knn)
 knn_prescriptions = makeprescriptions(knn)
 knn_outcomes = evaluateprescriptions(cf, knn_prescriptions)
 ```
 
 Similar for random forests
 ```julia
-rf = getoutcomes(train_X, train_y, train_T, test_X, test_y, test_T, :randomforest)
+rf = getoutcomes(train_X, train_y, train_T, test_X, :randomforest)
 rf_prescriptions = makeprescriptions(rf)
 rf_outcomes = evaluateprescriptions(cf, rf_prescriptions)
 ```
 
 And for lasso regression
 ```julia
-lasso = getoutcomes(train_X, train_y, train_T, test_X, test_y, test_T, :lasso)
+lasso = getoutcomes(train_X, train_y, train_T, test_X, :lasso)
 lasso_prescriptions = makeprescriptions(lasso)
 lasso_outcomes = evaluateprescriptions(cf, lasso_prescriptions)
 ```
