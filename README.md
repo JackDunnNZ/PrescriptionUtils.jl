@@ -91,7 +91,7 @@ cf = getcounterfactuals(test_X, test_y, test_T, :knn)
 
 We can get the baseline and oracle outcomes to get lower and upper bounds on performance:
 ```julia
-baseline_outcomes = evaluatebaseline(cf, train_X, train_y, train_T)
+baseline_outcomes = evaluatebaseline(cf, test_X, test_y, test_T)
 oracle_outcomes, oracle_prescriptions = evaluateoracle(cf)
 ```
 
