@@ -1,4 +1,4 @@
-immutable KNN
+struct KNN
   kcoeff::Float64
   neighbors::Data{Weighted}
   weights::Vector{Vector{Float64}}
@@ -16,14 +16,14 @@ function find_k_coeff(d::Data{Weighted}, k_range=1:100)
     n_m = length(y_m)
 
     max_k = min(maximum(k_range), n_m - 1)
-    kdtree = NearestNeighbors.KDTree(X_m')
+    kdtree = NearestNeighbors.KDTree(Matrix(X_m'))
     # Find the k+1 nearest neighbors to each point, sorted by distance
     # Each point has itself as the first neighbor, which we will ignore
-    idxs, _ = NearestNeighbors.knn(kdtree, X_m', max_k + 1, true)
+    idxs, _ = NearestNeighbors.knn(kdtree, Matrix(X_m'), max_k + 1, true)
 
     # Get the outcomes for each of the neighbors
     # Ignore the first neighbor since it's just the point itself
-    cum_means = Vector{Vector{Float64}}(n_m)
+    cum_means = Vector{Vector{Float64}}(undef, n_m)
     for i = 1:n_m
       outcomes = y_m[idxs[i][2:end]]
       cum_means[i] = cumsum(outcomes) ./ (1:max_k)
@@ -56,7 +56,7 @@ function getoutcomes(newdata_norm::Data{Normalized}, knn::KNN)
   M = length(knn.neighbors.X_T)
 
   n = size(newdata_norm.X, 1)
-  outcomes = Matrix{Float64}(n, M)
+  outcomes = Matrix{Float64}(undef, n, M)
 
   for m = 1:M
     # Weight all points according to candidate treatment
@@ -71,8 +71,9 @@ function getoutcomes(newdata_norm::Data{Normalized}, knn::KNN)
 
     # Get k nearest neighbors for each new point from the neighbor pool
     # We don't need the neighbors in sorted order
-    kdtree = NearestNeighbors.KDTree(X_m')
-    idxs, _ = NearestNeighbors.knn(kdtree, current_weighted.X', k, false)
+    kdtree = NearestNeighbors.KDTree(Matrix(X_m'))
+    idxs, _ = NearestNeighbors.knn(kdtree, Matrix(current_weighted.X'), k,
+                                   false)
 
     # Get the mean outcome for each point from the neighbors
     for i = 1:n

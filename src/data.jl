@@ -2,11 +2,11 @@
 abstract type DataState end
 
 "Starting state for data."
-immutable Original <: DataState end
+struct Original <: DataState end
 "State for data with normalized `X` values."
-immutable Normalized <: DataState end
+struct Normalized <: DataState end
 "State for data with normalized and weighted `X` values."
-immutable Weighted <: DataState end
+struct Weighted <: DataState end
 
 """
 Data container for observational data.
@@ -17,7 +17,7 @@ treatments.
 Also provides `X_T` and `y_T` containing the subset of the data for each
 treatment.
 """
-immutable Data{DS <: DataState}
+struct Data{DS <: DataState}
   X::Matrix{Float64}
   y::Vector{Float64}
   T::Vector{Int}
@@ -25,7 +25,7 @@ immutable Data{DS <: DataState}
   y_T::Vector{Vector{Float64}}
 
   function Data{DS}(X, y, T) where DS
-    treatment_inds = [find(T .== t) for t in 1:maximum(T)]
+    treatment_inds = [findall(T .== t) for t in 1:maximum(T)]
     X_T = [X[inds, :] for inds in treatment_inds]
     y_T = [y[inds] for inds in treatment_inds]
     new(X, y, T, X_T, y_T)

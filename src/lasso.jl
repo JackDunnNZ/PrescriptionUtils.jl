@@ -1,4 +1,4 @@
-immutable Lasso
+struct Lasso
   models::Vector{Tuple{Vector{Float64},Float64}}
 end
 
@@ -10,21 +10,12 @@ function train(d::Data{Normalized}, ::Val{:lasso})
     y_m = d.y_T[m]
     n_m = length(y_m)
 
-    sn = round(Int, n_m * 0.75)
-    tr_inds = StatsBase.sample(1:n_m, sn, replace=false)
-    vl_inds = setdiff(1:n_m, tr_inds)
-
-    tr_X = X_m[tr_inds, :]
-    vl_X = X_m[vl_inds, :]
-    tr_y = y_m[tr_inds]
-    vl_y = y_m[vl_inds]
-
     if n_m < 10
       zeros(size(X_m, 2)), mean(y_m)
     else
-      cv = GLMNet.glmnetcv(tr_X, tr_y)
-      best = indmin(cv.meanloss)
-      β = full(cv.path.betas[:, best])
+      cv = GLMNet.glmnetcv(X_m, y_m)
+      best = argmin(cv.meanloss)
+      β = Vector(cv.path.betas[:, best])
       β0 = cv.path.a0[best]
       β, β0
     end

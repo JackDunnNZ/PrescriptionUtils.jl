@@ -1,4 +1,4 @@
-immutable RandomForest
+struct RandomForest
   forests::Vector
 end
 

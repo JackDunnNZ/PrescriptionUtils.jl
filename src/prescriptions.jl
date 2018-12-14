@@ -21,7 +21,7 @@ function makeprescriptions(
                                                 for _ in 1:size(outcomes, 1)],
   )
   map(1:size(outcomes, 1)) do i
-    idx = indmin(outcomes[i, allowed_prescriptions[i]])
+    idx = argmin(outcomes[i, allowed_prescriptions[i]])
     allowed_prescriptions[i][idx]
   end
 end

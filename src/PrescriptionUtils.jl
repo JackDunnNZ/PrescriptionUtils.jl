@@ -1,10 +1,14 @@
 module PrescriptionUtils
 
+using Compat
+
 import GLMNet
 import MLDataUtils
 import NearestNeighbors
 import ScikitLearn
 import StatsBase
+
+import Compat.Statistics: mean
 
 export
   evaluatebaseline,
