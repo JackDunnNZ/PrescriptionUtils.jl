@@ -67,8 +67,10 @@ function weight_data(d::Data{Normalized})
   weights = map(1:length(d.X_T)) do m
     X_m = d.X_T[m]
     y_m = d.y_T[m]
-    model = ScikitLearn.fit!(LinearRegression(), X_m, y_m)
-    coef = model[:coef_]::Vector{Float64}
+
+    path = GLMNet.glmnet(X_m, y_m)
+    coef = Vector(path.betas[:, end])
+
     w = abs.(coef)
     w ./= sum(w)
   end

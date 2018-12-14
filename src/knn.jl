@@ -47,9 +47,8 @@ function find_k_coeff(d::Data{Weighted}, k_range=1:100)
   end
 
   sqrt_n = sqrt.(length.(d.y_T))
-  model = ScikitLearn.fit!(
-      LinearRegression(fit_intercept=false), reshape(sqrt_n, M, 1), best_k)
-  k_coeff = model[:coef_][1]::Float64
+  path = GLMNet.glmnet(reshape(sqrt_n, M, 1), best_k)
+  k_coeff = path.betas[1, end]
 end
 
 function getoutcomes(newdata_norm::Data{Normalized}, knn::KNN)
