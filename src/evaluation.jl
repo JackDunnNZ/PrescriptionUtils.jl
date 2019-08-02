@@ -29,8 +29,8 @@ function evaluateoracle(
   )
   # For each sample, find the best allowed prescription
   n = length(allowed_prescriptions)
-  outcomes = Vector{Float64}(n)
-  prescriptions = Vector{Int}(n)
+  outcomes = Vector{Float64}(undef, n)
+  prescriptions = Vector{Int}(undef, n)
   for i = 1:n
     outcomes[i], idx = findmin(cf[i, allowed_prescriptions[i]])
     prescriptions[i] = allowed_prescriptions[i][idx]
@@ -43,7 +43,7 @@ end
 function evaluateprescriptions(cf::Matrix{Float64}, prescriptions::Vector{Int})
   # For each sample, find result under the current prescription
   n = length(prescriptions)
-  outcomes = Vector{Float64}(n)
+  outcomes = Vector{Float64}(undef, n)
   for i = 1:n
     outcomes[i] = cf[i, prescriptions[i]]
   end

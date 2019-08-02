@@ -27,11 +27,11 @@ end
 function getoutcomes(new_data::Data{Normalized}, lasso::Lasso)
   M = length(lasso.models)
   n = length(new_data.y)
-  outcomes = Matrix{Float64}(n, M)
+  outcomes = Matrix{Float64}(undef, n, M)
 
   for m = 1:M
     β, β0 = lasso.models[m]
-    outcomes[:, m] = new_data.X * β + β0
+    outcomes[:, m] = new_data.X * β .+ β0
   end
 
   outcomes

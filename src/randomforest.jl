@@ -22,7 +22,7 @@ end
 function getoutcomes(new_data::Data{Normalized}, rf::RandomForest)
   M = length(rf.forests)
   n = length(new_data.y)
-  outcomes = Matrix{Float64}(n, M)
+  outcomes = Matrix{Float64}(undef, n, M)
 
   for m = 1:M
     outcomes[:, m] = ScikitLearn.predict(rf.forests[m], new_data.X)
