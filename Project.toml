@@ -10,3 +10,9 @@ MLDataUtils = "cc2ba9b6-d476-5e6d-8eaf-a92d5412d41d"
 NearestNeighbors = "b8a86587-4115-5ab1-83bc-aa920d37bbce"
 ScikitLearn = "3646fa90-6ef7-5e7e-9f22-8aca16db6324"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
