@@ -72,7 +72,11 @@ function weight_data(d::Data{Normalized})
     coef = Vector(path.betas[:, end])
 
     w = abs.(coef)
-    w ./= sum(w)
+    if sum(w) == 0
+      w .= 1.0
+    else
+      w ./= sum(w)
+    end
   end
 
   # Apply weights
