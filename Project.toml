@@ -6,6 +6,7 @@ version = "0.1.0"
 [deps]
 Compat = "34da2185-b29b-5c13-b0c7-acf172513d20"
 GLMNet = "8d5ece8b-de18-5317-b113-243142960cc6"
+IAIBase = "29bcb618-b77a-5722-928a-7e71e7b389c6"
 MLDataUtils = "cc2ba9b6-d476-5e6d-8eaf-a92d5412d41d"
 NearestNeighbors = "b8a86587-4115-5ab1-83bc-aa920d37bbce"
 ScikitLearn = "3646fa90-6ef7-5e7e-9f22-8aca16db6324"

@@ -15,7 +15,8 @@ function getcounterfactuals(d::Data{Original}, impute_method::Symbol)
   getcounterfactuals(d_norm, impute_method)
 end
 function getcounterfactuals(X, y, T, impute_method::Symbol)
-  getcounterfactuals(Data(X, y, T), impute_method)
+  features = IAIBase.Features(X)
+  getcounterfactuals(Data(features.X_numeric, y, T), impute_method)
 end
 
 """

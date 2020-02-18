@@ -3,6 +3,7 @@ module PrescriptionUtils
 using Compat
 
 import GLMNet
+import IAIBase
 import MLDataUtils
 import NearestNeighbors
 import ScikitLearn
