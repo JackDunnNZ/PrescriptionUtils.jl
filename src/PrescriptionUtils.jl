@@ -25,7 +25,8 @@ export
 const ensemble = PyCall.PyNULL()
 
 function __init__()
-    copy!(ensemble, PyCall.pyimport("sklearn.ensemble"))
+  ScikitLearn.Skcore.import_sklearn()
+  copy!(ensemble, PyCall.pyimport("sklearn.ensemble"))
 end
 
 include("data.jl")
