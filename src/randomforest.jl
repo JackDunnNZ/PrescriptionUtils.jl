@@ -10,7 +10,7 @@ function train(d::Data{Normalized}, ::Val{:randomforest})
     y_m = d.y_T[m]
     n_m = length(y_m)
 
-    rf = RandomForestRegressor(n_estimators=100)
+    rf = ensemble.RandomForestRegressor(n_estimators=100)
     ScikitLearn.fit!(rf, X_m, y_m)
 
     rf
